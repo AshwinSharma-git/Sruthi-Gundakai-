@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>My Heart Belongs to Sruthi ❤️</title>    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500&family=Pacifico&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff3366;
+            --secondary-color: #ff89a8;
+            --accent-color: #ffccd5;
+            --text-color: #2c003e;
+        }        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .love-title {
+            font-family: 'Great Vibes', 'Sacramento', cursive;
+            font-size: 3.5rem;
+            color: #ff1493;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.3);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            transition: opacity 1s ease;
+            z-index: 1000;
+        }        .tap-button {
+            position: relative;
+            padding: 1.5rem 3rem;
+            font-size: 2.5em;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #ff1493;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+        }
+
+        .tap-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }        .love-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            max-width: 80%;
+            z-index: 100;
+            animation: floatCard 3s ease-in-out infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            margin-bottom: 80px; /* Increased space for double-tap text */
+        }        .double-tap-instruction {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 1;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 2000;
+            animation: pulse 2s ease-in-out infinite;
+            background: rgba(255, 51, 102, 0.2);
+            padding: 12px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: floatUp 4s ease-in-out;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+
+        .love-message {
+            position: absolute;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.2);
+        }
+
+        .quote-container {
+            margin: 1.5rem 0;
+            min-height: 80px;
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .quote {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 0;
+            font-style: italic;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateZ(40px);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+        }
+
+        .heart-btn:hover {
+            transform: translateZ(50px) scale(1.05);
+            background: var(--secondary-color);
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.2rem;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: particleFloat 1.5s ease-out forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, calc(-50% - 100px)) scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+            gap: 10px;
+        }
+
+        .music-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .heartbeat {
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .love-card.interactive {
+            transition: transform 0.3s ease;
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.2rem;
+            z-index: 9999;
+            transition: transform 1s ease-out;
+        }
+
+        .firework-trail {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to top, transparent, #fff);
+            animation: trail 0.5s ease-out forwards;
+        }
+
+        .firework-explosion {
+            position: absolute;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes trail {
+            0% { height: 0; opacity: 1; }
+            100% { height: 100px; opacity: 0; }
+        }
+
+        @keyframes explode {
+            0% { 
+                transform: scale(0.5); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(2); 
+                opacity: 0; 
+            }
+        }
+
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body>    <div class="intro-screen">
+        <button class="tap-button">Tap Here, Gundakai ❤️</button>
+    </div>    <div class="container" style="display: none;">
+        <div class="floating-hearts"></div>
+        
+        <div class="love-card interactive">
+            <h1 class="love-title">Sruthi Gundakai ❤️</h1>
+            <div class="quote-container">
+                <p class="quote"></p>
+            </div>
+            <button class="heart-btn">💝 Express My Love 💝</button>
+        </div>
+        <div class="double-tap-instruction">Double tap anywhere for a surprise! ✨</div>
+    </div>
+
+    <div class="music-controls">
+        <button class="music-btn" id="playMusic">🎵</button>
+        <button class="music-btn" id="nextSong">⏭️</button>
+    </div>
+
+    <div class="cursor-trail"></div>    <script>
+        const elements = {
+            introScreen: document.querySelector('.intro-screen'),
+            container: document.querySelector('.container'),
+            tapButton: document.querySelector('.tap-button'),
+            cursorTrail: document.querySelector('.cursor-trail'),
+            heartBtn: document.querySelector('.heart-btn'),
+            quoteContainer: document.querySelector('.quote-container'),
+            quoteElement: document.querySelector('.quote'),
+            loveCard: document.querySelector('.love-card')
+        };
+
+        const state = {
+            lastX: window.innerWidth / 2,
+            lastY: window.innerHeight / 2,
+            lastTap: 0
+        };
+
+        // Love quotes array
+        const loveQuotes = [
+            "Every moment with you feels like a beautiful dream come true ❤️",
+            "You're the missing piece that makes my life complete 💖",
+            "My heart beats only for you, Sruthi 💝",
+            "Your smile lights up my world in ways nothing else can ✨",
+            "In your eyes, I found my home 🏡",
+            "You're the best thing that's ever happened to me 💑",
+            "My love for you grows stronger with each passing day 🌹",
+            "You're my today and all of my tomorrows 💕",
+            "Life is beautiful because you're in it 🌸",
+            "With you, every moment is magical ✨",
+            "You make my heart skip a beat every time I see you 💓",
+            "My love for you is deeper than the ocean 🌊",
+            "You're the star that lights up my darkest nights ⭐",
+            "Forever yours, my beautiful Sruthi 💝",
+            "You're the sweetest dream I never want to wake up from 💫"
+        ];
+
+        function createSkyFirework() {
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight;
+            const endY = window.innerHeight * (0.2 + Math.random() * 0.3);
+            
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.innerHTML = '✨';
+            firework.style.left = startX + 'px';
+            firework.style.top = startY + 'px';
+            document.body.appendChild(firework);
+
+            const trail = document.createElement('div');
+            trail.className = 'firework-trail';
+            firework.appendChild(trail);
+
+            firework.animate([
+                { transform: 'translateY(0)' },
+                { transform: `translateY(-${startY - endY}px)` }
+            ], {
+                duration: 1000,
+                easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+            }).onfinish = () => {
+                createFireworkExplosion(startX, endY);
+                firework.remove();
+            };
+        }
+
+        function createFireworkExplosion(x, y) {
+            const colors = ['❤️', '💖', '💝', '✨', '💕', '💫', '⭐', '🌟'];
+            for (let i = 0; i < 24; i++) {
+                const angle = (i / 24) * Math.PI * 2;
+                const velocity = 100 + Math.random() * 50;
+                const particle = document.createElement('div');
+                particle.className = 'firework-explosion';
+                particle.textContent = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+
+                const deltaX = Math.cos(angle) * velocity;
+                const deltaY = Math.sin(angle) * velocity;
+                const rotation = Math.random() * 360;
+
+                particle.animate([
+                    { 
+                        transform: 'translate(0, 0) rotate(0deg)',
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(${deltaX}px, ${deltaY}px) rotate(${rotation}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1500,
+                    easing: 'cubic-bezier(0, 0, 0.2, 1)'
+                });
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+            }
+            createHeartBurst(x, y);
+        }
+
+        // Enhanced heart burst effect
+        function createHeartBurst(x = window.innerWidth / 2, y = window.innerHeight / 2) {
+            const particles = ['❤️', '💖', '💝', '🌸', '✨', '💕', '🌺', '💮', '🌹'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const angle = (i / 20) * Math.PI * 2;
+                    const distance = 50 + Math.random() * 100;
+                    const burstX = x + Math.cos(angle) * distance;
+                    const burstY = y + Math.sin(angle) * distance;
+                    createCursorParticle(burstX, burstY);
+                }, i * 50);
+            }
+        }
+
+        // Function to show a random quote with improved animation
+        function showRandomQuote() {
+            const randomQuote = loveQuotes[Math.floor(Math.random() * loveQuotes.length)];
+            elements.quoteElement.style.opacity = "0";
+            elements.quoteElement.style.transform = "translateY(20px)";
+            
+            requestAnimationFrame(() => {
+                elements.quoteElement.textContent = randomQuote;
+                requestAnimationFrame(() => {
+                    elements.quoteElement.style.opacity = "1";
+                    elements.quoteElement.style.transform = "translateY(0)";
+                    createHeartBurst();
+                });
+            });
+        }
+
+        function createCursorParticle(x, y) {
+            const particles = ['❤️', '💖', '💝', '🌸', '✨', '💕', '🌺', '💮', '🌹'];
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 1500);
+        }
+
+        // Event Listeners
+        elements.heartBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent double-tap firing
+            elements.heartBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                elements.heartBtn.style.transform = '';
+                showRandomQuote();
+            }, 150);
+        });        document.addEventListener('click', (e) => {
+            // Only handle double-tap if not clicking on buttons
+            if (!e.target.matches('button')) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - state.lastTap;
+                if (tapLength < 500 && tapLength > 0) {
+                    // Create fireworks at the tap location
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            createSkyFirework();
+                            createHeartBurst(e.clientX, e.clientY);
+                        }, i * 300);
+                    }
+                }
+                state.lastTap = currentTime;
+            }
+        });
+
+        // Track cursor movement with improved responsiveness
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                const distance = Math.hypot(e.clientX - state.lastX, e.clientY - state.lastY);
+                if (distance > 20) { // Reduced threshold for more particles
+                    createCursorParticle(e.clientX, e.clientY);
+                    state.lastX = e.clientX;
+                    state.lastY = e.clientY;
+                }
+            });
+        });
+
+        // Initialize
+        elements.tapButton.addEventListener('click', () => {
+            elements.introScreen.style.opacity = '0';
+            setTimeout(() => {
+                elements.introScreen.style.display = 'none';
+                elements.container.style.display = 'flex';
+                elements.container.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    elements.container.style.opacity = '1';
+                    showRandomQuote();
+                });
+                createHeartBurst();
+                createSkyFirework();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
